@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://2016519.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="连接MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql-常用命令">
+<meta property="og:url" content="http://2016519.com/2020/01/12/Mysql-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="ykq">
+<meta property="og:description" content="连接MySQL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-12T06:04:46.000Z">
+<meta property="article:modified_time" content="2020-01-13T06:56:31.678Z">
+<meta property="article:author" content="ykq">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://2016519.com/2020/01/12/Mysql-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Mysql-常用命令 | ykq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ykq</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-主目录">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>主目录</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-档案">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>档案</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://2016519.com/2020/01/12/Mysql-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ykq1.jpg">
+      <meta itemprop="name" content="ykq">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ykq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql-常用命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-12 14:04:46" itemprop="dateCreated datePublished" datetime="2020-01-12T14:04:46+08:00">2020-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-13 14:56:31" itemprop="dateModified" datetime="2020-01-13T14:56:31+08:00">2020-01-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">Mysql</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="连接MySQL"></a>连接MySQL</h1><a id="more"></a>
+<ul>
+<li><p>格式： mysql -h主机地址 -u用户名 －p用户密码</p>
+<h1 id="连接到本机上的MySQ："><a href="#连接到本机上的MySQ：" class="headerlink" title="连接到本机上的MySQ："></a>连接到本机上的MySQ：</h1><pre><code>mysql -uroot -p /*如果刚安装好MySQL，root是没有密码的*/</code></pre><h1 id="连接到远程主机上的MySQL："><a href="#连接到远程主机上的MySQL：" class="headerlink" title="连接到远程主机上的MySQL："></a>连接到远程主机上的MySQL：</h1></li>
+<li><p>假设远程主机的IP为：192.168.206.100，用户名为root,密码为12345678。</p>
+<pre><code>mysql&gt; mysql -h192.168.206.100 -uroot -p12345678; /*u与root可以不加空格*/</code></pre><h1 id="退出MySQL命令：-exit-或-quit（回车）："><a href="#退出MySQL命令：-exit-或-quit（回车）：" class="headerlink" title="退出MySQL命令： exit 或 quit（回车）："></a>退出MySQL命令： exit 或 quit（回车）：</h1><pre><code>mysql&gt; exit/quit;</code></pre><h1 id="MySQL–修改密码"><a href="#MySQL–修改密码" class="headerlink" title="MySQL–修改密码"></a>MySQL–修改密码</h1></li>
+<li><p>格式：mysqladmin -u用户名 -p旧密码 password 新密码</p>
+<h1 id="1、root密码为空时，设置root密码："><a href="#1、root密码为空时，设置root密码：" class="headerlink" title="1、root密码为空时，设置root密码："></a>1、root密码为空时，设置root密码：</h1><pre><code>mysql&gt; mysqladmin -uroot newpassword;   -- 因为开始时root没有密码，所以-p旧密码 可以省略</code></pre><h1 id="2、使用-sqladmin-命令修改密码："><a href="#2、使用-sqladmin-命令修改密码：" class="headerlink" title="2、使用 sqladmin 命令修改密码："></a>2、使用 sqladmin 命令修改密码：</h1><pre><code>mysql&gt; mysqladmin -uroot -p123456 password 12345678;</code></pre><h1 id="3、使用set-passsword命令修改密码："><a href="#3、使用set-passsword命令修改密码：" class="headerlink" title="3、使用set passsword命令修改密码："></a>3、使用set passsword命令修改密码：</h1><pre><code>mysql&gt; set password for 用户名@localhost = password(&apos;新密码&apos;);</code></pre><h1 id="4、忘记root密码情况下："><a href="#4、忘记root密码情况下：" class="headerlink" title="4、忘记root密码情况下："></a>4、忘记root密码情况下：</h1><p> ①关闭正在运行的MySQL服务。<br> ②打开DOS窗口，转到mysql\bin目录。<br> ③输入mysqld –skip-grant-tables 回车。–skip-grant-tables 的意思是启动MySQL服务的时候跳过权限表认证。<br> ④再开一个DOS窗口（因为刚才那个DOS窗口已经不能动了），输入mysql回车，如果成功，将出现MySQL提示符 &gt;。<br> ⑤连接权限数据库： use mysql; 。<br> ⑥改密码：update user set password=password(“新密码”) where user=”root”;（别忘了最后加分号） 。<br> ⑦刷新权限（必须步骤）：flush privileges;　。<br> ⑧退出mysql  quit；</p>
+<pre><code>mysqld --skip-grant-tables   
+mysql&gt; use mysql;   --连接权限数据库
+mysql&gt; update user set password=password(&quot;新密码&quot;) where user=&quot;root&quot;;   -- 改密码
+mysql&gt; flush privileges;    -- 刷新权限
+mysql&gt; quit；    -- 退出mysql</code></pre><h1 id="MySQL–常用命令"><a href="#MySQL–常用命令" class="headerlink" title="MySQL–常用命令"></a>MySQL–常用命令</h1><h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><pre><code>查看数据库 show databases;
+创建数据库 create database 库名 default charset=utf8;
+删除数据库 drop database 库名;
+打开数据库 use 库名;</code></pre><h2 id="数据表操作"><a href="#数据表操作" class="headerlink" title="数据表操作"></a>数据表操作</h2><p>数据库管理系统中, 可以有很多库, 每个数据库中可以包括多张数据表</p>
+<p>  ​查看表: show tables;</p>
+<p>  ​创建表: create table 表名(字段名1 类型,字段名2 类型)engine=innodb default charset=utf8;</p>
+<p>  ​ 创建表: 如果表不存在,则创建, 如果存在就不执行这条命令</p>
+<pre><code>​ create table if not exists 表名(
+​ 字段1 类型,
+​ 字段2 类型
+​ );</code></pre><p>  ​ 删除表: drop table 表名;</p>
+</li>
+</ul>
+<p>​     表结构: desc 表名；</p>
+<h2 id="记录操作-增删改查"><a href="#记录操作-增删改查" class="headerlink" title="记录操作 增删改查"></a>记录操作 增删改查</h2><p>​*插入 : insert into 表名(字段1,字段2,字段3) values(值1,值2,值3); insert into 表名(字段1,字段2,字段3) values(a值1,a值2,a值3),(b值1,b值2,b值3);</p>
+<ul>
+<li>插入单行的时候使用VALUES，在插入多行的时候使用VALUE 这样比较快一点<pre><code>查询 : select * from 表名;
+​select 字段1,字段2,字段3 from 表名;
+​select * from 表名 where 字段=某个值;
+​修改 : update 表名 set 字段=某个值 where 条件;
+​update 表名 set 字段1=值1,字段2=值2 where 条件;
+​update 表名 set 字段=字段+值 where 条件;
+​删除: delete from 表名 where 字段=某个值;</code></pre><h1 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h1><h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2></li>
+<li>使用根登录后，可以使用<pre><code>create database if not exists UNOOB default charset utf8;   </code></pre></li>
+</ul>
+<p>创建数据库，该命令的作用：<br>如果数据库不存在则创建，存在则不创建。 创建UNOOB数据库，并设定编码集为UTF8    </p>
+<h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><pre><code>drop database py;</code></pre><h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2><ul>
+<li><p>通过mysql&gt;命令窗口可以很简单的创建MySQL数据表。你可以使用SQL语句 CREATE TABLE来创建数据表。</p>
+</li>
+<li><p>以下为创建数据表runoob_tbl实例：</p>
+<pre><code>create table user(
+id int unsigned not null AUTO_INCREMENT PRIMARY KEY,
+username varchar(30) not null,
+password char(32) not null,
+email varchar(100) not null,
+pic varchar(50) default &apos;./public/img/pic.jpg&apos;
+)engine=innodb default charset=utf8;</code></pre><h1 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h1></li>
+<li><p>格式：alter table 表名 action（更改选项）;<br>添加字段：</p>
+<pre><code>alter table 表名 add 字段名信息</code></pre><p>例如：</p>
+<pre><code>-- 在user表的最后追加一个num字段 设置为int not null
+alter table user add num int not null;
+
+-- 在user表的email字段后添加一个age字段，设置int not null default 20；
+
+alter table user add age int not null default 20 after email;
+
+-- 在user表的最前面添加一个aa字段设置为int类型
+alter table user add aa int first;</code></pre><h1 id="删除字段："><a href="#删除字段：" class="headerlink" title="删除字段："></a>删除字段：</h1><pre><code>alter table 表名 drop 被删除的字段名</code></pre><h1 id="修改字段："><a href="#修改字段：" class="headerlink" title="修改字段："></a>修改字段：</h1><pre><code>alter   table    表名      change[modify]      被修改后的字段信息</code></pre><h1 id="其中：change可以修改字段名，-modify-不修改"><a href="#其中：change可以修改字段名，-modify-不修改" class="headerlink" title="其中：change可以修改字段名， modify 不修改"></a>其中：change可以修改字段名， modify 不修改</h1><p>例如：</p>
+<pre><code>-- 修改user表中age字段信息（类型），（使用modify关键字的目的不修改字段名）
+
+alter table user modify age tinyint unsigned not null default 20;
+
+-- 修改user表的num字段改为mm字段并添加了默认值（使用change可以改字段名）
+
+alter table user change num mm int not null default 10;        </code></pre></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/12/HTML/" rel="prev" title="HTML">
+      <i class="fa fa-chevron-left"></i> HTML
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/12/Python/" rel="next" title="Python">
+      Python <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#连接MySQL"><span class="nav-number">1.</span> <span class="nav-text">连接MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#连接到本机上的MySQ："><span class="nav-number">2.</span> <span class="nav-text">连接到本机上的MySQ：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#连接到远程主机上的MySQL："><span class="nav-number">3.</span> <span class="nav-text">连接到远程主机上的MySQL：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#退出MySQL命令：-exit-或-quit（回车）："><span class="nav-number">4.</span> <span class="nav-text">退出MySQL命令： exit 或 quit（回车）：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL–修改密码"><span class="nav-number">5.</span> <span class="nav-text">MySQL–修改密码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1、root密码为空时，设置root密码："><span class="nav-number">6.</span> <span class="nav-text">1、root密码为空时，设置root密码：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、使用-sqladmin-命令修改密码："><span class="nav-number">7.</span> <span class="nav-text">2、使用 sqladmin 命令修改密码：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、使用set-passsword命令修改密码："><span class="nav-number">8.</span> <span class="nav-text">3、使用set passsword命令修改密码：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、忘记root密码情况下："><span class="nav-number">9.</span> <span class="nav-text">4、忘记root密码情况下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL–常用命令"><span class="nav-number">10.</span> <span class="nav-text">MySQL–常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库操作"><span class="nav-number">10.1.</span> <span class="nav-text">数据库操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据表操作"><span class="nav-number">10.2.</span> <span class="nav-text">数据表操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录操作-增删改查"><span class="nav-number">10.3.</span> <span class="nav-text">记录操作 增删改查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL数据库"><span class="nav-number">11.</span> <span class="nav-text">MySQL数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库"><span class="nav-number">11.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据库"><span class="nav-number">11.2.</span> <span class="nav-text">删除数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建表"><span class="nav-number">11.3.</span> <span class="nav-text">创建表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改表结构"><span class="nav-number">12.</span> <span class="nav-text">修改表结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除字段："><span class="nav-number">13.</span> <span class="nav-text">删除字段：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改字段："><span class="nav-number">14.</span> <span class="nav-text">修改字段：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其中：change可以修改字段名，-modify-不修改"><span class="nav-number">15.</span> <span class="nav-text">其中：change可以修改字段名， modify 不修改</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ykq"
+      src="/images/ykq1.jpg">
+  <p class="site-author-name" itemprop="name">ykq</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/2016519" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;2016519" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1352924502@gmail.com" title="E-Mail → mailto:1352924502@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ykq</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
